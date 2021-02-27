@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /**
  * 
  * EXERCISE 1
@@ -8,7 +9,12 @@
  */
 function mapPromise(promise, transformer){
   return new Promise((resolve, reject) => {
-    /* IMPLEMENT ME!! */
+    promise.then(result => {
+      if (result instanceof Error) {
+        reject(result);
+      }
+      resolve(transformer(result));
+    }).catch(reject);
   });
 }
 
@@ -21,7 +27,18 @@ function mapPromise(promise, transformer){
  */
 function squarePromise(numberPromise){
   return numberPromise
-    .then(/* IMPLEMENT ME! */);
+    .then(result => {
+      let value = Number(result);
+      if (!isNaN(value)) {
+        return new Promise((resolve) =>{
+          resolve(value * value);
+        });
+      } else {
+        return new Promise((_resolve, reject) =>{
+          reject(`Cannot convert '${result}' to a number!`);
+        });
+      }
+    }).catch();
 }
 
 /**
@@ -32,7 +49,11 @@ function squarePromise(numberPromise){
  */
 function squarePromiseOrZero(promise){
   return squarePromise(promise)
-    .catch(/* IMPLEMENT ME! */);
+    .catch(() => {
+      return new Promise(function (resolve) {
+        resolve(0);
+      });
+    });
 }
 
 /**
@@ -42,7 +63,15 @@ function squarePromiseOrZero(promise){
  * @returns {Promise}
  */
 function switcheroo(promise){
-  return promise.then(/* IMPLEMENT ME */);
+  return promise.then(value => {
+    return new Promise((_resolve, reject) => {
+      reject(value);
+    });
+  }, reason => {
+    return new Promise((resolve) => {
+      resolve(reason);
+    });
+  });
 }
 
 /**

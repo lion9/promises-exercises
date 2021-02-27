@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-env mocha */
 
 const assert = require('assert');

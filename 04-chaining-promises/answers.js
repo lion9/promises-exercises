@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /**
  * 
  * EXERCISE 1
@@ -8,7 +9,7 @@
 function flatMapPromise(promise, asyncTransformer){
   return new Promise((resolve, reject) => {
     promise
-      .then(/* IMPLEMENT ME! */);
+      .then(asyncTransformer).then(resolve).catch(reject);
   });
 }
 
@@ -20,7 +21,7 @@ function flatMapPromise(promise, asyncTransformer){
  * @param {function} slowAsyncProcess 
  */
 function chainTwoAsyncProcesses(firstPromise, slowAsyncProcess){
-  return firstPromise.then(/* IMPLEMENT ME! */);
+  return firstPromise.then(slowAsyncProcess);
 }
 
 /**
@@ -32,7 +33,14 @@ function chainTwoAsyncProcesses(firstPromise, slowAsyncProcess){
  */
 function makeGetUserByIdWithOrganization(getUserById, getOrganizationById){
   return function getUserByIdWithOrganization(userId){
-    /* IMPLEMENT ME! */
+    return getUserById(userId).then(user => {
+      if (user) {
+        return getOrganizationById(user.organizationId).then(org => {
+          user.organization = org;
+          return user;
+        });
+      }
+    });
   };
 }
 

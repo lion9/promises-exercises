@@ -1,3 +1,5 @@
+/* eslint-disable quotes */
+/* eslint-disable linebreak-style */
 
 /**
  * 
@@ -6,7 +8,7 @@
  * @returns {Promise<3>}
  */
 function makePromiseResolveWith3(){
-  /* IMPLEMENT ME! */
+  return Promise.resolve(3);
 }
 
 /**
@@ -16,7 +18,7 @@ function makePromiseResolveWith3(){
  * @returns {Promise<,"Boo!">}
  */
 function makePromiseRejectWithBoo(){
-  /* IMPLEMENT ME! */
+  return Promise.reject("Boo!");
 }
 
 /**
@@ -29,8 +31,10 @@ function makePromiseRejectWithBoo(){
 
 function makePromiseWithConstructor(itShouldResolve){
   return new Promise((resolve, reject) => {
-    /* If itShouldResolve is true, call resolve */
-    /* If itShouldResolve is false, call reject */
+    if (itShouldResolve) {
+      resolve();
+    }
+    reject();
   });
 }
 
@@ -42,8 +46,10 @@ function makePromiseWithConstructor(itShouldResolve){
  * @param {number} delayInMs 
  * @return {Promise<any>} - A promise that will resolve with the value after delayInMs milliseconds
  */
-function makeDelayPromise(value, delayInMs){
-  /* Return a promise that resolves with the value after delayInMs */
+function makeDelayPromise(value, delayInMs) {
+  return new Promise(function(resolve) {
+    setTimeout(resolve.bind(null, value), delayInMs);
+  });
 }
 
 module.exports = {

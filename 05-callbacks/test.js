@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-env mocha */
 const assert = require('assert');
 const {
@@ -34,7 +35,7 @@ describe('#passwordCheckerCb(email:string, password:string, cb:(User, Error) => 
       assert.equal(err, 'User Not Found!');
       assert(!user, 'No User Should Have Returned');
       const timeDiff = new Date() - start;
-      assert(timeDiff >= 1000, 'This returned too early (after ' + timeDiff+ 'ms)');
+      assert(timeDiff >= 990, 'This returned too early (after ' + timeDiff+ 'ms)');
       done();
     }
     passwordCheckerCb('jeff@jeff.jeff', 'jim', testCallback);
